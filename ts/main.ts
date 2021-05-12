@@ -22,7 +22,23 @@ function getVideoGame():VideoGame{
 }
 
  function displayGame(myGame:VideoGame):void{
-     //Display video game below the form
+     let displayDiv = document.getElementById("display");
+
+     let gameHeading = document.createElement("h2");
+     gameHeading.innerText = myGame.title;
+
+     let gameInfo = document.createElement("p");
+     let notDigitalDisplay = "not";
+     if(myGame.isDigitalOnly){
+        notDigitalDisplay = "";
+     }
+     gameInfo.innerText = myGame.title + " has a rating of " +
+                        myGame.rating + ". It costs $" + 
+                        myGame.price + " and is " + notDigitalDisplay +  
+                        " digital only.";
+
+     displayDiv.appendChild(gameHeading);
+     displayDiv.appendChild(gameInfo);
  }
 
 window.onload = function(){
