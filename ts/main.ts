@@ -47,7 +47,13 @@ window.onload = function(){
     addBtn.onclick = addVideoGame;
 }
 
+function clearAllErrors(){
+    let errSummary = document.getElementById("validation-summary");
+    errSummary.innerHTML = "";
+}
+
 function addVideoGame(){
+    clearAllErrors();
     if(isAllDataValid()){
         let game = getVideoGame();
         displayGame(game);
@@ -55,5 +61,41 @@ function addVideoGame(){
 }
 
 function isAllDataValid(){
-    return true;
+    let isValid = true;
+    let title = 
+        (<HTMLInputElement>document.getElementById("title")).value;
+    if(title == ""){
+        isValid = false;
+        let errSummary = document.getElementById("validation-summary");
+        let errItem = document.createElement("li");
+        errItem.innerText = "Title is required";
+
+        errSummary.appendChild(errItem);
+    }
+    let price = 
+        (<HTMLInputElement>document.getElementById("price")).value;
+    let priceValue = 
+        parseFloat((<HTMLInputElement>document.getElementById("price")).value);
+    if(price == "" || priceValue == NaN){
+        isValid = false;
+
+        let errSummary = document.getElementById("validation-summary");
+        let errItem = document.createElement("li");
+        errItem.innerText = "Price is required and must be a number";
+
+        errSummary.appendChild(errItem);
+    }
+
+    let rating = (<HTMLOptionElement>document.getElementById("rating")).value;
+    if(rating == ""){
+        isValid = false;
+
+        let errSummary = document.getElementById("validation-summary");
+        let errItem = document.createElement("li");
+        errItem.innerText = "A rating must be selected";
+
+        errSummary.appendChild(errItem);
+    }
+
+    return isValid;
 }
